@@ -4,12 +4,15 @@ import swaggerJsDoc, { Options, SwaggerDefinition } from 'swagger-jsdoc'
 import cookieParser from 'cookie-parser'
 import { createConnection } from 'typeorm'
 import { Bundle } from './entities/Bundle'
+import passport from 'passport'
 import path from 'path'
 import { Card } from './entities/Card'
 
 const app = App()
 app.use(json())
 app.use(cookieParser())
+app.use(passport.initialize())
+// app.use(passport.session()) // required?? really?
 
 const swaggerDefinition: SwaggerDefinition = {
     info: {
