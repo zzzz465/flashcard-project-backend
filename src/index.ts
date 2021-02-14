@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser'
 import { createConnection } from 'typeorm'
 import { Bundle } from './entities/Bundle'
 import path from 'path'
+import { Card } from './entities/Card'
 
 const app = App()
 app.use(json())
@@ -31,12 +32,21 @@ createConnection({
     entities: [path.resolve(__dirname, '**/*{.ts,.js}')],
     synchronize: true
 }).then(async (connection) => {
-    console.log('connected')
     const bundle = new Bundle()
-    await bundle.save()
-    console.log('hello!')
+    const card1 = new Card()
+    card1.front = 'this is front page of the card'
+    card1.back = 'this is back page of the card'
 
-    const bundles = connection.getRepository(Bundle)
+    const card2 = new Card()
+    card2.front = 'second card front'
+    card2.back = 'second card back'
+    bundle.cards = [card1, card2]
+
+    await connection.manager.save(bundle)
+
+    const bundles = await connection.getRepository(Bundle).find({ relations: ['cards'] })
+
+    console.log(bundles)
 }).catch(err => {
     console.error(err)
 })

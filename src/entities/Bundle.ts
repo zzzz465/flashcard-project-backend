@@ -5,7 +5,7 @@ import { Card } from './Card';
 export class Bundle extends BaseEntity {
     @PrimaryGeneratedColumn()
     id!: number
-    @OneToMany( (type) => Card, (image) => image.id, {
+    @OneToMany( (type) => Card, (image) => image.bundle, {
         cascade: true
     })
     cards!: Card[]
