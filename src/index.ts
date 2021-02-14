@@ -2,23 +2,37 @@ import App, { json } from 'express'
 import swaggerUI from 'swagger-ui-express'
 import swaggerJsDoc, { Options, SwaggerDefinition } from 'swagger-jsdoc'
 import cookieParser from 'cookie-parser'
+import { createConnection } from 'typeorm'
 
 const app = App()
 app.use(json())
 app.use(cookieParser())
 
 const swaggerDefinition: SwaggerDefinition = {
-  info: {
-    title: 'flashcard-project-API-Documentation',
-    version: '1.0.0',
-  }
+    info: {
+        title: 'flashcard-project-API-Documentation',
+        version: '1.0.0',
+    }
 }
 
 const swaggerOptions: Options = {
-  swaggerDefinition,
-  apis: ['./**/*.ts']
+    swaggerDefinition,
+    apis: ['./**/*.ts']
 }
 
+createConnection({
+    type: "postgres",
+    host: "localhost",
+    port: 5432,
+    username: "postgres",
+    password: "password"
+}).then((connection) => {
+    console.log('connected')
+    // connection.
+})
+.catch(err => {
+    console.error(err)
+})
 
 /**
  * @swagger
@@ -38,7 +52,7 @@ const swaggerOptions: Options = {
  *                 $ref: '#/definitions/Todo'
  */
 app.get('/', (req, res) => {
-  res.send('hello world!').end()
+    res.send('hello world!').end()
 })
 
 const spec = swaggerJsDoc(swaggerOptions)
@@ -46,5 +60,5 @@ app.use('/', swaggerUI.serve)
 app.get('/api-docs', swaggerUI.setup(spec))
 
 app.listen(80, () => {
-  console.log('server listening on port 80')
+    console.log('server listening on port 80')
 })
