@@ -3,6 +3,8 @@ import swaggerUI from 'swagger-ui-express'
 import swaggerJsDoc, { Options, SwaggerDefinition } from 'swagger-jsdoc'
 import cookieParser from 'cookie-parser'
 import { createConnection } from 'typeorm'
+import { Bundle } from './entities/Bundle'
+import path from 'path'
 
 const app = App()
 app.use(json())
@@ -25,12 +27,17 @@ createConnection({
     host: "localhost",
     port: 5432,
     username: "postgres",
-    password: "password"
-}).then((connection) => {
+    password: "password",
+    entities: [path.resolve(__dirname, '**/*{.ts,.js}')],
+    synchronize: true
+}).then(async (connection) => {
     console.log('connected')
-    // connection.
-})
-.catch(err => {
+    const bundle = new Bundle()
+    await bundle.save()
+    console.log('hello!')
+
+    const bundles = connection.getRepository(Bundle)
+}).catch(err => {
     console.error(err)
 })
 

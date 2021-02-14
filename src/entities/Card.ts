@@ -10,7 +10,7 @@ export class Card extends BaseEntity {
     @Column()
     back!: string
     @ManyToOne(
-        () => Bundle,
+        (type) => Bundle,
         (bundle) => bundle.cards
     )
     bundle!: Bundle
