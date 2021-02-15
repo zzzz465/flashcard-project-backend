@@ -6,8 +6,8 @@ import { CatsService } from './cats/cats.service'
 import { CatsModule } from './cats/cats.module'
 import { LoggerMiddleware } from './logger.middleware'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { UserController } from './user/user.controller';
-import { UserModule } from './user/user.module';
+import { UserController } from './user/user.controller'
+import { UserModule } from './user/user.module'
 
 @Module({
   imports: [
