@@ -23,7 +23,7 @@ module.exports = {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
-    'curly': ['warn', 'multi-or-nest'],
+    'curly': ['warn', 'consistent'],
     'semi': ['warn', 'never']
   },
 };
