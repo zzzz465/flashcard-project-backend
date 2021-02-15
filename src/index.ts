@@ -14,6 +14,8 @@ app.use(cookieParser())
 app.use(passport.initialize())
 // app.use(passport.session()) // required?? really?
 
+passport.use()
+
 const swaggerDefinition: SwaggerDefinition = {
     info: {
         title: 'flashcard-project-API-Documentation',
