@@ -1,21 +1,14 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
-import { AppController } from './app.controller'
-import { AppService } from './app.service'
-import { CatsController } from './cats/cats.controller'
-import { CatsService } from './cats/cats.service'
-import { CatsModule } from './cats/cats.module'
 import { LoggerMiddleware } from './logger.middleware'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { UserController } from './user/user.controller'
 import { UserModule } from './user/user.module'
 
 @Module({
   imports: [
-    CatsModule,
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 3306,
+      port: 5432,
       username: 'postgres',
       password: 'password',
       database: 'flashcard',
