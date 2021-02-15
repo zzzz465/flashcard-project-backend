@@ -9,12 +9,14 @@ import {
 } from '@nestjs/common'
 import { CreateUserDTO } from './DTO/CreateUser.dto'
 import { FindOneParams } from './DTO/FindOneParams'
+import { UserService } from './user.service'
 
 @Controller('user')
 export class UserController {
+  constructor(private readonly userService: UserService) {}
   @Post()
   create(@Body() createUserDTO: CreateUserDTO) {
-    return 'this action adds a new user'
+    return 'OK'
   }
 
   @Get(':id')
