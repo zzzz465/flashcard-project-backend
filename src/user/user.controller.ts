@@ -7,7 +7,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common'
-import { CreateUserDTO } from './DTO/CreateUserDTO'
+import { CreateUserDTO } from './DTO/CreateUser.dto'
 import { FindOneParams } from './DTO/FindOneParams'
 
 @Controller('user')
@@ -20,14 +20,6 @@ export class UserController {
   @Get(':id')
   findOne(@Param() params: FindOneParams) {
     return 'This action returns a user'
-  }
-
-  @Post()
-  createBulk(
-    @Body(new ParseArrayPipe({ items: CreateUserDTO }))
-    createUserDTOS: CreateUserDTO[],
-  ) {
-    return 'this action adds new users'
   }
 
   @Get()

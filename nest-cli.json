@@ -3,7 +3,7 @@
   "sourceRoot": "src",
   "plugins": [
     {
-      "name": "@nestjs/swagger",
+      "name": "@nestjs/swagger/plugin",
       "options": {
         "introspectComments": true
       }
