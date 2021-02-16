@@ -14,10 +14,10 @@ export class User {
   id: string
   @Column({ nullable: true })
   name?: string
-  @Column()
-  email: string
+  @Column({ nullable: true })
+  email?: string
   //TODO - 이거 hex 로 저장하게 바꾸자
-  @Column({ comment: 'password encrypted with bcrypt' })
+  @Column({ comment: 'password encrypted with bcrypt', nullable: false })
   encrypted: string
   @OneToMany((type) => Bundle, (bundle) => bundle.owner, {
     onDelete: 'CASCADE',

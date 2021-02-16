@@ -25,6 +25,7 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     // 'curly': ['warn', 'multi'],
-    'semi': ['warn', 'never']
+    'semi': ['warn', 'never'],
+    'nestjs/use-validation-pipe': ['off']
   },
 };
