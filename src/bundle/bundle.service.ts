@@ -1,19 +1,31 @@
 import { Injectable } from '@nestjs/common'
+import { BundleRepository } from './bundle.repository'
 import { CreateBundleDto } from './dto/create-bundle.dto'
 import { UpdateBundleDto } from './dto/update-bundle.dto'
 
 @Injectable()
 export class BundleService {
-  create(createBundleDto: CreateBundleDto) {
-    return 'This action adds a new bundle'
+  constructor(private readonly bundleRepository: BundleRepository) {}
+
+  async create({ owner, cards, description, title }: CreateBundleDto) {
+    const bundle = this.bundleRepository.create({
+      cards: cards,
+      owner,
+    })
+    await this.bundleRepository.save(bundle)
+    return bundle
   }
 
-  findAll() {
-    return `This action returns all bundle`
+  findAll(id?: number) {
+    if (id) {
+      return this.bundleRepository.find({ where: { id } })
+    } else {
+      return this.bundleRepository.find()
+    }
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} bundle`
+    return this.bundleRepository.findOne(id)
   }
 
   update(id: number, updateBundleDto: UpdateBundleDto) {

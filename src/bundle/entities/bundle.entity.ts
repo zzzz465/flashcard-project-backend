@@ -1,4 +1,4 @@
-import { User } from 'src/user/entities/user.entity'
+import { User } from '../../user/entities/user.entity'
 import { Column, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 import { Card } from './card.entity'
 
@@ -7,7 +7,10 @@ export class Bundle {
   id: number
   @ManyToOne((type) => User, (user) => user.bundles)
   owner: string
-  @OneToMany((type) => Card, (card) => card.bundle)
+  @OneToMany((type) => Card, (card) => card.bundle, {
+    cascade: true,
+    eager: true,
+  })
   cards: Card[]
   @Column({ default: true })
   private: boolean

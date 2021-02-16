@@ -19,6 +19,9 @@ export class User {
   //TODO - 이거 hex 로 저장하게 바꾸자
   @Column({ comment: 'password encrypted with bcrypt' })
   encrypted: string
-  @OneToMany((type) => Bundle, (bundle) => bundle.owner)
+  @OneToMany((type) => Bundle, (bundle) => bundle.owner, {
+    onDelete: 'CASCADE',
+    lazy: true,
+  })
   bundles: Bundle[]
 }
