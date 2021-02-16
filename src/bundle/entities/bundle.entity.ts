@@ -1,7 +1,14 @@
 import { User } from '../../user/entities/user.entity'
-import { Column, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { Card } from './card.entity'
 
+@Entity()
 export class Bundle {
   @PrimaryGeneratedColumn()
   id: number
@@ -12,6 +19,6 @@ export class Bundle {
     eager: true,
   })
   cards: Card[]
-  @Column({ default: true })
+  @Column({ default: false })
   private: boolean
 }
