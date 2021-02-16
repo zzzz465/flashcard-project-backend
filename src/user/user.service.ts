@@ -3,11 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { User } from './user.entity'
 import { UserRepository } from './user.repository'
-import crypto from 'crypto'
-import * as bcrypt from 'bcrypt'
-
-const saltRounds = 10
-const pw = 'rand_password'
 
 @Injectable()
 export class UserService {
@@ -15,7 +10,8 @@ export class UserService {
 
   async create(email: string, encrypted: string) {
     const user = this.usersRepository.create({
-      email, encrypted
+      email,
+      encrypted,
     })
 
     await this.usersRepository.save(user)
