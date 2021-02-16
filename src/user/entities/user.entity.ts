@@ -1,5 +1,12 @@
 import { IsEmail } from 'class-validator'
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Bundle } from 'src/bundle/entities/bundle.entity'
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 
 @Entity()
 export class User {
@@ -12,4 +19,6 @@ export class User {
   //TODO - 이거 hex 로 저장하게 바꾸자
   @Column({ comment: 'password encrypted with bcrypt' })
   encrypted: string
+  @OneToMany((type) => Bundle, (bundle) => bundle.owner)
+  bundles: Bundle[]
 }

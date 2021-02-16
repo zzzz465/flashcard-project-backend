@@ -3,6 +3,10 @@ import { LoggerMiddleware } from './logger.middleware'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserModule } from './user/user.module'
 import { AuthModule } from './auth/auth.module'
+import { BundleController } from './bundle/bundle.controller'
+import { BundleModule } from './bundle/bundle.module'
+import { Bundle } from './bundle'
+import { BundleModule } from './bundle/bundle.module'
 
 @Module({
   imports: [
@@ -18,7 +22,10 @@ import { AuthModule } from './auth/auth.module'
       autoLoadEntities: true,
     }),
     UserModule,
+    BundleModule,
   ],
+  controllers: [BundleController],
+  providers: [Bundle],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
