@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserModule } from './user/user.module'
 import { BundleModule } from './bundle/bundle.module'
 import * as path from 'path'
+import { AuthModule } from './auth/auth.module'
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import * as path from 'path'
     }),
     UserModule,
     BundleModule,
+    AuthModule,
   ],
 })
 export class AppModule implements NestModule {
