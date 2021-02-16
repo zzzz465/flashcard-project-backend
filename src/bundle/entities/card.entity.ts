@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryColumn,
   PrimaryGeneratedColumn,
@@ -13,8 +14,11 @@ export class Card {
   id: number
   @ManyToOne((type) => Bundle, (bundle) => bundle.cards, {
     onDelete: 'CASCADE',
+    nullable: false,
   })
-  bundle: Bundle
+  @JoinColumn({ name: 'bundle' })
+  @Column()
+  bundle: number
   @Column()
   front: string
   @Column()

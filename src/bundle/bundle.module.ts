@@ -7,7 +7,7 @@ import { CardRepository } from './card.repository'
 import { BundleAbilityFactory } from './casl-ability.factory'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BundleRepository, CardRepository])],
+  imports: [TypeOrmModule.forFeature([CardRepository, BundleRepository])],
   controllers: [BundleController],
   providers: [BundleService, BundleAbilityFactory],
 })

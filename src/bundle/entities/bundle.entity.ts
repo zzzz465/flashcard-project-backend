@@ -2,6 +2,7 @@ import { User } from '../../user/entities/user.entity'
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -12,11 +13,15 @@ import { Card } from './card.entity'
 export class Bundle {
   @PrimaryGeneratedColumn()
   id: number
-  @ManyToOne((type) => User, (user) => user.bundles)
-  owner: string
+  @ManyToOne((type) => User, (user) => user.bundles, {
+    nullable: false,
+  })
+  @JoinColumn({ name: 'owner' })
+  @Column()
+  owner: number
   @OneToMany((type) => Card, (card) => card.bundle, {
     cascade: true,
-    eager: true,
+    nullable: false,
   })
   cards: Card[]
   @Column({ default: false })

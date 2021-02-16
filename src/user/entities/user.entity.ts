@@ -11,7 +11,7 @@ import {
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: string
+  id: number
   @Column({ nullable: true })
   name?: string
   @Column({ nullable: true })

@@ -51,7 +51,7 @@ export class BundleController {
     @Body() updateBundleDto: UpdateBundleDto,
   ) {
     const user = this.abilityFactory.createForUser(req.user)
-    if (user.can(Action.UPDATE, Bundle)) {
+    if (user.can(Action.UPDATE, { id } as any)) {
       return this.bundleService.update(id, updateBundleDto)
     } else {
       throw new HttpException(

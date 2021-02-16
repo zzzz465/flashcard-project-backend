@@ -4,7 +4,7 @@ import { IsObject, IsOptional, IsString } from 'class-validator'
 
 export class CreateBundleDto {
   @ApiHideProperty()
-  owner: string
+  owner: number
 
   @IsOptional()
   @IsString()
