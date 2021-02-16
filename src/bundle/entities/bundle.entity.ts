@@ -13,17 +13,26 @@ import { Card } from './card.entity'
 export class Bundle {
   @PrimaryGeneratedColumn()
   id: number
+
   @ManyToOne((type) => User, (user) => user.bundles, {
     nullable: false,
   })
   @JoinColumn({ name: 'owner' })
   @Column()
   owner: number
+
+  @Column({ default: '' })
+  title: string
+
+  @Column({ default: '' })
+  description: string
+
   @OneToMany((type) => Card, (card) => card.bundle, {
     cascade: true,
     nullable: false,
   })
   cards: Card[]
+
   @Column({ default: false })
-  private: boolean
+  isPrivate: boolean
 }

@@ -28,7 +28,7 @@ export class BundleController {
   @UseGuards(JWTAuthGuard)
   @Post()
   create(@Body() createBundleDto: CreateBundleDto, @Request() req: any) {
-    return this.bundleService.create({ ...createBundleDto, owner: req.user.id })
+    return this.bundleService.create(req.user, createBundleDto)
   }
 
   @Get()
@@ -50,15 +50,13 @@ export class BundleController {
     @Request() req,
     @Body() updateBundleDto: UpdateBundleDto,
   ) {
-    const user = this.abilityFactory.createForUser(req.user)
-    if (user.can(Action.UPDATE, { id } as any)) {
-      return this.bundleService.update(id, updateBundleDto)
-    } else {
+    const result = this.bundleService.update(id, req.user, updateBundleDto)
+    if (typeof result !== 'boolean') return result
+    else
       throw new HttpException(
         'user can only edit their bundles',
         HttpStatus.UNAUTHORIZED,
       )
-    }
   }
 
   @Delete(':id')

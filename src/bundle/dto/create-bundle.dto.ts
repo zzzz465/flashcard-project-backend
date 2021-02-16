@@ -1,11 +1,8 @@
 import { ApiHideProperty } from '@nestjs/swagger'
-import { IsObject, IsOptional, IsString } from 'class-validator'
+import { IsBoolean, IsObject, IsOptional, IsString } from 'class-validator'
 // import { Card } from '../entities/card.entity'
 
 export class CreateBundleDto {
-  @ApiHideProperty()
-  owner: number
-
   @IsOptional()
   @IsString()
   title?: string
@@ -17,4 +14,8 @@ export class CreateBundleDto {
   @IsOptional()
   @IsObject({ each: true })
   cards?: any[]
+
+  @IsOptional()
+  @IsBoolean()
+  isPrivate?: boolean = false
 }
