@@ -2,34 +2,43 @@ import {
   Body,
   Controller,
   Get,
-  Param,
-  ParseArrayPipe,
   Post,
-  Query,
+  Request,
+  Response,
+  UseGuards,
 } from '@nestjs/common'
-import { CreateUserDTO } from './DTO/CreateUser.dto'
-import { FindOneParams } from './DTO/FindOneParams'
+import { AuthService } from 'src/auth/auth.service'
+import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard'
+import { RegisterUserDTO } from './DTO/RegisterUser.dto'
+import { User } from './user.entity'
 import { UserService } from './user.service'
+import express from 'express'
+import { LoginUserDTO } from './DTO/LoginUser.dto'
+import { JWTAuthGuard } from 'src/auth/guards/JWTAuth.guard'
 
-@Controller('user')
+@Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
-  @Post()
-  create(@Body() createUserDTO: CreateUserDTO) {
-    return 'OK'
+  constructor(private readonly userService: UserService,
+    private readonly authService: AuthService) {}
+
+  @Post('/register')
+  async registerUser(@Body() { email, password }: RegisterUserDTO) {
+    await this.userService.create(email, password)
+    return 'ok'
   }
 
-  @Get(':id')
-  findOne(@Param() params: FindOneParams) {
-    return 'This action returns a user'
+  @UseGuards(LocalAuthGuard)
+  @Post('/login')
+  async login(@Body() body: LoginUserDTO, @Request() req: any, @Response({ passthrough: true }) res: express.Response) {
+    const { access_token } = await this.authService.login(req.user)
+    return {
+      access_token
+    }
   }
 
-  @Get()
-  findByIds(
-    @Query('id', new ParseArrayPipe({ items: Number, separator: ',' }))
-    ids: number[],
-  ) {
-    // request: GET /?ids=1,2,3
-    return 'this action returns users by ids'
+  @UseGuards(JWTAuthGuard)
+  @Get('/test')
+  ping() {
+    return 'ok'
   }
 }

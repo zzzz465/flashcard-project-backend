@@ -13,17 +13,9 @@ const pw = 'rand_password'
 export class UserService {
   constructor(private usersRepository: UserRepository) {}
 
-  async create(id: string, email?: string, password?: string) {
-    let encrypted: string
-    if (password) {
-      const salt = await bcrypt.genSalt(saltRounds)
-      encrypted = await bcrypt.hash(password, salt)
-    } else {
-      encrypted = new Uint8Array(crypto.randomBytes(48)).toString()
-    }
-
+  async create(email: string, encrypted: string) {
     const user = this.usersRepository.create({
-      id, email, encrypted
+      email, encrypted
     })
 
     await this.usersRepository.save(user)

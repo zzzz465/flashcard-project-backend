@@ -5,8 +5,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 export class User {
   @PrimaryGeneratedColumn()
   id: string
-  @Column()
-  name: string
+  @Column({ nullable: true })
+  name?: string
   @Column()
   email: string
   //TODO - 이거 hex 로 저장하게 바꾸자
