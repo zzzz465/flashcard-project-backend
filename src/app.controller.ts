@@ -13,10 +13,4 @@ export class AppController {
   healthCheck() {
     return this.appService.returnOk()
   }
-
-  @UseGuards(JWTAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user
-  }
 }
