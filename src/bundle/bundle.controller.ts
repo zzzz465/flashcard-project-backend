@@ -16,6 +16,7 @@ import {
 } from '@nestjs/common'
 import { ApiQuery } from '@nestjs/swagger'
 import { JWTAuthGuard } from '../auth/guards/JWTAuth.guard'
+import { RequestWithUser } from '../auth/interfaces/request.interface'
 import { BundleService } from './bundle.service'
 import { Action, BundleAbilityFactory } from './casl-ability.factory'
 import { CreateBundleDto } from './dto/create-bundle.dto'
@@ -52,7 +53,7 @@ export class BundleController {
   @Put(':id')
   update(
     @Param('id') id: number,
-    @Request() req,
+    @Request() req: RequestWithUser,
     @Body() updateBundleDto: UpdateBundleDto,
   ) {
     const result = this.bundleService.update(id, req.user, updateBundleDto)
@@ -66,7 +67,7 @@ export class BundleController {
 
   @UseGuards(JWTAuthGuard)
   @Delete(':id')
-  async remove(@Param('id') id: number, @Request() req) {
+  async remove(@Param('id') id: number, @Request() req: RequestWithUser) {
     const result = await this.bundleService.remove(id, req.user)
     switch (result) {
       case 'SUCCESS':

@@ -14,33 +14,33 @@ import { Card } from './card.entity'
 @Entity()
 export class Bundle {
   @PrimaryGeneratedColumn()
-  id: number
+  id!: number
 
   @ManyToOne((type) => User, (user) => user.bundles, {
     nullable: false,
   })
   @JoinColumn({ name: 'owner' })
   @Column()
-  owner: number
+  owner!: number
 
   @Column({ default: '' })
-  title: string
+  title!: string
 
   @Column({ default: '' })
-  description: string
+  description!: string
 
   @UpdateDateColumn({ type: 'date' })
-  updatedDate: Date
+  updatedDate!: Date
 
   @CreateDateColumn({ type: 'date' })
-  createdDate: Date
+  createdDate!: Date
 
   @OneToMany((type) => Card, (card) => card.bundle, {
     cascade: true,
     nullable: false,
   })
-  cards: Card[]
+  cards!: Card[]
 
   @Column({ default: false })
-  isPrivate: boolean
+  isPrivate!: boolean
 }

@@ -11,17 +11,18 @@ import {
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number
-  @Column({ nullable: true })
-  name?: string
-  @Column({ nullable: true })
-  email?: string
+  id!: number
+  @Column({ default: '' })
+  name!: string
+  @Column({ default: '' })
+  email!: string
+  //TODO - 이거 hex 로 저장하게 바꾸자
   //TODO - 이거 hex 로 저장하게 바꾸자
   @Column({ comment: 'password encrypted with bcrypt', nullable: false })
-  encrypted: string
+  encrypted!: string
   @OneToMany((type) => Bundle, (bundle) => bundle.owner, {
     onDelete: 'CASCADE',
     lazy: true,
   })
-  bundles: Bundle[]
+  bundles!: Bundle[]
 }
