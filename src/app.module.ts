@@ -2,6 +2,8 @@ import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common'
 import { LoggerMiddleware } from './logger.middleware'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { UserModule } from './user/user.module'
+import { BundleModule } from './bundle/bundle.module'
+import * as path from 'path'
 import { AuthModule } from './auth/auth.module'
 
 @Module({
@@ -13,11 +15,13 @@ import { AuthModule } from './auth/auth.module'
       username: 'postgres',
       password: 'password',
       database: 'flashcard',
-      entities: ['./entities/**/*.ts'],
+      entities: [path.join(__dirname, '/../**/*.entity.js')],
       synchronize: true,
       autoLoadEntities: true,
     }),
     UserModule,
+    BundleModule,
+    AuthModule,
   ],
 })
 export class AppModule implements NestModule {

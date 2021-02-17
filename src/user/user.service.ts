@@ -1,14 +1,18 @@
-import { Injectable } from '@nestjs/common'
-import { InjectRepository } from '@nestjs/typeorm'
-import { Repository } from 'typeorm'
-import { User } from './user.entity'
+import { forwardRef, Inject, Injectable } from '@nestjs/common'
+import { AuthService } from '../auth/auth.service'
+import { User } from './entities/user.entity'
 import { UserRepository } from './user.repository'
 
 @Injectable()
 export class UserService {
-  constructor(private usersRepository: UserRepository) {}
+  constructor(
+    private usersRepository: UserRepository,
+    @Inject(forwardRef(() => AuthService))
+    private authService: AuthService,
+  ) {}
 
-  async create(email: string, encrypted: string) {
+  async create(email: string, password: string) {
+    const encrypted = await this.authService.encryptPassword(password)
     const user = this.usersRepository.create({
       email,
       encrypted,

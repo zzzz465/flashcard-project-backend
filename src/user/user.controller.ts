@@ -7,14 +7,14 @@ import {
   Response,
   UseGuards,
 } from '@nestjs/common'
-import { AuthService } from 'src/auth/auth.service'
-import { LocalAuthGuard } from 'src/auth/guards/local-auth.guard'
+import { AuthService } from '../auth/auth.service'
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard'
 import { RegisterUserDTO } from './DTO/RegisterUser.dto'
-import { User } from './user.entity'
+import { User } from './entities/user.entity'
 import { UserService } from './user.service'
 import express from 'express'
 import { LoginUserDTO } from './DTO/LoginUser.dto'
-import { JWTAuthGuard } from 'src/auth/guards/JWTAuth.guard'
+import { JWTAuthGuard } from '../auth/guards/JWTAuth.guard'
 
 @Controller('users')
 export class UserController {
