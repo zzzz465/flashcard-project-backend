@@ -11,7 +11,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common'
-import { JWTAuthGuard } from 'src/auth/guards/JWTAuth.guard'
+import { JWTAuthGuard } from '../auth/guards/JWTAuth.guard'
 import { BundleService } from './bundle.service'
 import { Action, BundleAbilityFactory } from './casl-ability.factory'
 import { CreateBundleDto } from './dto/create-bundle.dto'

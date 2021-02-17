@@ -6,8 +6,8 @@ import {
   InferSubjects,
 } from '@casl/ability'
 import { Injectable } from '@nestjs/common'
-import { userToken } from 'src/auth/jwt.interface'
-import { User } from 'src/user/entities/user.entity'
+import { userToken } from '../auth/jwt.interface'
+import { User } from '../user/entities/user.entity'
 import { Bundle } from './entities/bundle.entity'
 
 type Subjects = InferSubjects<typeof Bundle | typeof User>

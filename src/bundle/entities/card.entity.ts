@@ -17,8 +17,8 @@ export class Card {
     nullable: false,
   })
   @JoinColumn({ name: 'bundle' })
-  @Column()
-  bundle: Bundle
+  @Column({ type: 'int' })
+  bundle: Bundle | number
   @Column()
   front: string
   @Column()

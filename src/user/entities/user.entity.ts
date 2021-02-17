@@ -1,5 +1,5 @@
 import { IsEmail } from 'class-validator'
-import { Bundle } from 'src/bundle/entities/bundle.entity'
+import { Bundle } from '../../bundle/entities/bundle.entity'
 import {
   Column,
   Entity,

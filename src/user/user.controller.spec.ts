@@ -1,4 +1,6 @@
+import { forwardRef } from '@nestjs/common'
 import { Test, TestingModule } from '@nestjs/testing'
+import { AuthModule } from '../auth/auth.module'
 import { UserController } from './user.controller'
 import { UserRepository } from './user.repository'
 import { UserService } from './user.service'

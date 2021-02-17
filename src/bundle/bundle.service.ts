@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { userToken } from 'src/auth/jwt.interface'
+import { userToken } from '../auth/jwt.interface'
 import { BundleRepository } from './bundle.repository'
 import { Action, BundleAbilityFactory } from './casl-ability.factory'
 import { CreateBundleDto } from './dto/create-bundle.dto'
