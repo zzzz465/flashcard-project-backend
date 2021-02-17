@@ -25,9 +25,9 @@ export class BundleService {
     return bundle
   }
 
-  findAll(id?: number) {
-    if (id) {
-      return this.bundleRepository.find({ where: { id } })
+  findAll(userId?: number) {
+    if (userId) {
+      return this.bundleRepository.find({ where: { owner: userId } })
     } else {
       return this.bundleRepository.find()
     }
@@ -56,7 +56,19 @@ export class BundleService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} bundle`
+  async remove(id: number, user: userToken) {
+    const bundle = await this.bundleRepository.findOne(id)
+    if (bundle) {
+      if (bundle.owner === user.id) {
+        await this.bundleRepository.delete({
+          id,
+        })
+        return 'SUCCESS'
+      } else {
+        return 'UNAUTHORIZED'
+      }
+    } else {
+      return 'NOTFOUND'
+    }
   }
 }

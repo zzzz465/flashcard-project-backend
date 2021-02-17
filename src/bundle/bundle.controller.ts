@@ -10,7 +10,11 @@ import {
   Request,
   HttpException,
   HttpStatus,
+  Query,
+  NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common'
+import { ApiQuery } from '@nestjs/swagger'
 import { JWTAuthGuard } from '../auth/guards/JWTAuth.guard'
 import { BundleService } from './bundle.service'
 import { Action, BundleAbilityFactory } from './casl-ability.factory'
@@ -32,15 +36,16 @@ export class BundleController {
   }
 
   @Get()
-  findAll(id?: number) {
-    // find user's all bundles
-    return this.bundleService.findAll(id)
+  @ApiQuery({ name: 'userId', type: Number, required: false })
+  findAll(@Query('userId') userId?: number) {
+    return this.bundleService.findAll(userId)
   }
 
   @Get(':id')
-  findOne(@Param('id') id: number) {
-    // find all bundles
-    return this.bundleService.findOne(id)
+  async findOne(@Param('id') id: number) {
+    const result = await this.bundleService.findOne(id)
+    if (result) return result
+    else throw new NotFoundException()
   }
 
   @UseGuards(JWTAuthGuard)
@@ -59,8 +64,19 @@ export class BundleController {
       )
   }
 
+  @UseGuards(JWTAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.bundleService.remove(id)
+  async remove(@Param('id') id: number, @Request() req) {
+    const result = await this.bundleService.remove(id, req.user)
+    switch (result) {
+      case 'SUCCESS':
+        return 'ok'
+
+      case 'UNAUTHORIZED':
+        throw new UnauthorizedException()
+
+      case 'NOTFOUND':
+        throw new NotFoundException()
+    }
   }
 }
