@@ -1,11 +1,13 @@
 import { User } from '../../user/entities/user.entity'
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm'
 import { Card } from './card.entity'
 
@@ -26,6 +28,12 @@ export class Bundle {
 
   @Column({ default: '' })
   description: string
+
+  @UpdateDateColumn({ type: 'date' })
+  updatedDate: Date
+
+  @CreateDateColumn({ type: 'date' })
+  createdDate: Date
 
   @OneToMany((type) => Card, (card) => card.bundle, {
     cascade: true,
