@@ -1,10 +1,11 @@
-import { forwardRef, Inject, Injectable } from '@nestjs/common'
+import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common'
 import { AuthService } from '../auth/auth.service'
 import { User } from './entities/user.entity'
 import { UserRepository } from './user.repository'
 
 @Injectable()
 export class UserService {
+  private readonly logger = new Logger('UserService')
   constructor(
     private usersRepository: UserRepository,
     @Inject(forwardRef(() => AuthService))
@@ -12,13 +13,19 @@ export class UserService {
   ) {}
 
   async create(email: string, password: string) {
-    const encrypted = await this.authService.encryptPassword(password)
-    const user = this.usersRepository.create({
-      email,
-      encrypted,
-    })
+    try {
+      const encrypted = await this.authService.encryptPassword(password)
+      const user = this.usersRepository.create({
+        email,
+        encrypted,
+      })
 
-    await this.usersRepository.save(user)
+      await this.usersRepository.save(user)
+      return true
+    } catch (err) {
+      this.logger.warn(err)
+      return false
+    }
   }
 
   findAll(): Promise<User[]> {

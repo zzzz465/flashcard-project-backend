@@ -14,7 +14,7 @@ export class User {
   id!: number
   @Column({ default: '' })
   name!: string
-  @Column({ default: '' })
+  @Column({ default: '', unique: true })
   email!: string
   //TODO - 이거 hex 로 저장하게 바꾸자
   //TODO - 이거 hex 로 저장하게 바꾸자

@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Get,
@@ -25,8 +26,9 @@ export class UserController {
 
   @Post('/register')
   async registerUser(@Body() { email, password }: RegisterUserDTO) {
-    await this.userService.create(email, password)
-    return 'ok'
+    const success = await this.userService.create(email, password)
+    if (success) return 'ok'
+    else throw new BadRequestException()
   }
 
   @UseGuards(LocalAuthGuard)
