@@ -4,12 +4,14 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  ManyToMany,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
 import { Card } from './card.entity'
+import { Star } from '../../star/entities/star.entity'
 
 @Entity()
 export class Bundle {
@@ -40,6 +42,9 @@ export class Bundle {
     nullable: false,
   })
   cards!: Card[]
+
+  @ManyToMany((type) => Star, (star) => star.bundles)
+  stars!: Star[]
 
   @Column({ default: false })
   isPrivate!: boolean

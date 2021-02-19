@@ -5,6 +5,9 @@ import { UserModule } from './user/user.module'
 import { BundleModule } from './bundle/bundle.module'
 import * as path from 'path'
 import { AuthModule } from './auth/auth.module'
+import { StarController } from './star/star.controller'
+import { StarService } from './star/star.service'
+import { StarModule } from './star/star.module'
 
 @Module({
   imports: [
@@ -22,6 +25,7 @@ import { AuthModule } from './auth/auth.module'
     UserModule,
     BundleModule,
     AuthModule,
+    StarModule,
   ],
 })
 export class AppModule implements NestModule {
