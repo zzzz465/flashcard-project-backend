@@ -24,6 +24,6 @@ export class User {
   })
   bundles!: Bundle[]
 
-  @OneToMany((type) => Star, (star) => star.userId)
+  @OneToMany((type) => Star, (star) => star.user)
   stars!: Star[]
 }

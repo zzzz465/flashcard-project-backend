@@ -43,7 +43,7 @@ export class Bundle {
   })
   cards!: Card[]
 
-  @ManyToMany((type) => Star, (star) => star.bundles)
+  @OneToMany((type) => Star, (star) => star.bundle)
   stars!: Star[]
 
   @Column({ default: false })

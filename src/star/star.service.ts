@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { BundleRepository } from '../bundle/bundle.repository'
+import { UserRepository } from '../user/user.repository'
 import { StarRepository } from './star.repository'
 
 @Injectable()
 export class StarService {
   constructor(
     private readonly starRepository: StarRepository,
+    private readonly userRepository: UserRepository,
     private readonly bundleRepository: BundleRepository,
   ) {}
 
@@ -14,18 +16,43 @@ export class StarService {
   }
 
   async addStar(userId: number, bundleId: number) {
-    const stars = await this.starRepository.findOne(userId)
+    const user = await this.userRepository.findOne(userId)
     const bundle = await this.bundleRepository.findOne(bundleId)
-    if (stars) {
+    if (user) {
       if (bundle) {
-        stars.bundles.push(bundle)
-        await this.starRepository.save(stars)
-        return 'OK'
+        const exist = await this.starRepository.findOne({
+          where: { user: userId, bundle: bundleId },
+        })
+
+        if (!exist) {
+          const star = this.starRepository.create({
+            bundle: { id: bundleId },
+            user: { id: userId },
+          })
+
+          await this.starRepository.save(star)
+          return 'OK'
+        } else {
+          return 'STAR_ALREADY_EXIST'
+        }
       } else {
         return 'BUNDLE_NOT_EXIST'
       }
     } else {
-      return 'STARS_NOT_EXIST'
+      return 'USER_NOT_EXIST'
+    }
+  }
+
+  async deleteStar(userId: number, bundleId: number) {
+    const star = await this.starRepository.findOne({
+      where: { userId: userId, bundleId: bundleId },
+    })
+
+    if (star) {
+      await this.starRepository.remove(star)
+      return star
+    } else {
+      return 'star_not_found'
     }
   }
 }

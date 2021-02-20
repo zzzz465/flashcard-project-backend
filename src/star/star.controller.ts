@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   NotFoundException,
@@ -34,10 +35,27 @@ export class StarController {
       case 'OK':
         return
 
-      case 'STARS_NOT_EXIST':
+      case 'STAR_ALREADY_EXIST':
         throw new ServiceUnavailableException()
+      case 'USER_NOT_EXIST':
       case 'BUNDLE_NOT_EXIST':
         throw new BadRequestException({ type: 'BUNDLE_NOT_EXIST' })
+    }
+  }
+
+  @Delete(':bundle_id')
+  @HttpCode(200)
+  async deleteStar(
+    @Param('bundle_id') bundle_id: number,
+    @Param('id') user_id: number,
+  ) {
+    const result = await this.starService.deleteStar(user_id, bundle_id)
+    switch (result) {
+      case 'star_not_found':
+        return new BadRequestException()
+
+      default:
+        return result
     }
   }
 }

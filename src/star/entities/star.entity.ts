@@ -1,15 +1,33 @@
-import { ManyToMany, ManyToOne, PrimaryColumn } from 'typeorm'
+import {
+  Column,
+  ManyToMany,
+  ManyToOne,
+  OneToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm'
 import { Bundle } from '../../bundle/entities/bundle.entity'
 import { User } from '../../user/entities/user.entity'
 
 export class Star {
-  @PrimaryColumn({ type: 'int' })
+  @PrimaryGeneratedColumn()
+  id!: number
+
+  @Column({ nullable: false })
+  userId!: number
+
   @ManyToOne((type) => User, (user) => user.stars, {
     cascade: true,
     eager: true,
   })
-  userId!: number
+  user!: User
 
-  @ManyToMany((type) => Bundle, (bundle) => bundle.stars)
-  bundles!: Bundle[]
+  @Column({ nullable: false })
+  bundleId!: number
+
+  @ManyToOne((type) => Bundle, (bundle) => bundle.stars, {
+    cascade: true,
+    eager: true,
+  })
+  bundle!: Bundle
 }
