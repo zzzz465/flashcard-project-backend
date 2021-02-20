@@ -11,5 +11,11 @@
     "outDir": "./dist",
     "incremental": true,
     "strict": true
-  }
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "./declaredType.d.ts"
+  ]
 }

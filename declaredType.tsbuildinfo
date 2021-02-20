@@ -1,0 +1,61 @@
+{
+  "bundle": {
+    "commonSourceDirectory": "./src",
+    "sourceFiles": [
+      "./src/app.service.ts",
+      "./src/user/DTO/LoginUser.dto.ts",
+      "./src/bundle/entities/card.entity.ts",
+      "./src/star/entities/star.entity.ts",
+      "./src/bundle/entities/bundle.entity.ts",
+      "./src/user/entities/user.entity.ts",
+      "./src/user/user.repository.ts",
+      "./src/user/user.service.ts",
+      "./src/auth/auth.service.ts",
+      "./src/auth/guards/JWTAuth.guard.ts",
+      "./src/auth/guards/local-auth.guard.ts",
+      "./src/app.controller.ts",
+      "./src/logger.middleware.ts",
+      "./src/auth/constants.ts",
+      "./src/auth/strategies/jwt.strategy.ts",
+      "./src/auth/strategies/local.strategy.ts",
+      "./src/auth/auth.module.ts",
+      "./src/user/DTO/RegisterUser.dto.ts",
+      "./src/user/user.controller.ts",
+      "./src/user/user.module.ts",
+      "./src/auth/jwt.interface.ts",
+      "./src/bundle/bundle.repository.ts",
+      "./src/bundle/casl-ability.factory.ts",
+      "./src/bundle/dto/create-bundle.dto.ts",
+      "./src/bundle/dto/update-bundle.dto.ts",
+      "./src/bundle/bundle.service.ts",
+      "./src/auth/interfaces/request.interface.ts",
+      "./src/bundle/bundle.controller.ts",
+      "./src/bundle/card.repository.ts",
+      "./src/bundle/bundle.module.ts",
+      "./src/star/DTO/addStar.dto.ts",
+      "./src/star/star.repository.ts",
+      "./src/star/star.service.ts",
+      "./src/star/star.controller.ts",
+      "./src/star/star.module.ts",
+      "./src/app.module.ts",
+      "./src/http-exception.filter.ts",
+      "./src/main.ts"
+    ],
+    "dts": {
+      "sections": [
+        {
+          "pos": 0,
+          "end": 33,
+          "kind": "type",
+          "data": "express"
+        },
+        {
+          "pos": 34,
+          "end": 12995,
+          "kind": "text"
+        }
+      ]
+    }
+  },
+  "version": "4.1.5"
+}
