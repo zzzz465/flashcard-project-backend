@@ -1,5 +1,6 @@
 import {
   Column,
+  Entity,
   ManyToMany,
   ManyToOne,
   OneToOne,
@@ -9,6 +10,7 @@ import {
 import { Bundle } from '../../bundle/entities/bundle.entity'
 import { User } from '../../user/entities/user.entity'
 
+@Entity()
 export class Star {
   @PrimaryGeneratedColumn()
   id!: number

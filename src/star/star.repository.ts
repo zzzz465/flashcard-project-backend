@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { Repository } from 'typeorm'
+import { EntityRepository, Repository } from 'typeorm'
 import { Star } from './entities/star.entity'
 
-@Injectable()
+@EntityRepository(Star)
 export class StarRepository extends Repository<Star> {}
