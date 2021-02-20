@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { userToken } from '../auth/jwt.interface'
+import { UserToken } from '../auth/jwt.interface'
 import { BundleRepository } from './bundle.repository'
 import { Action, BundleAbilityFactory } from './casl-ability.factory'
 import { CreateBundleDto } from './dto/create-bundle.dto'
@@ -11,7 +11,7 @@ export class BundleService {
   constructor(private readonly bundleRepository: BundleRepository) {}
 
   async create(
-    user: userToken,
+    user: UserToken,
     { cards, description, title, isPrivate }: CreateBundleDto,
   ): Promise<Bundle | false> {
     const bundle = this.bundleRepository.create({
@@ -39,7 +39,7 @@ export class BundleService {
 
   async update(
     id: number,
-    user: userToken,
+    user: UserToken,
     { cards, description, title, isPrivate }: UpdateBundleDto,
   ) {
     const bundle = await this.bundleRepository.findOne(id)
@@ -56,7 +56,7 @@ export class BundleService {
     }
   }
 
-  async remove(id: number, user: userToken) {
+  async remove(id: number, user: UserToken) {
     const bundle = await this.bundleRepository.findOne(id)
     if (bundle) {
       if (bundle.owner === user.id) {

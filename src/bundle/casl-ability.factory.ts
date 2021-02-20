@@ -6,7 +6,7 @@ import {
   InferSubjects,
 } from '@casl/ability'
 import { Injectable } from '@nestjs/common'
-import { userToken } from '../auth/jwt.interface'
+import { UserToken } from '../auth/jwt.interface'
 import { User } from '../user/entities/user.entity'
 import { Bundle } from './entities/bundle.entity'
 
@@ -25,7 +25,7 @@ export type AppAbility = Ability<[Action, Subjects]>
 // 이거 굳이 해야하나? 일단 보류해보고 나중에 사용 가능해지면 쓰자
 @Injectable()
 export class BundleAbilityFactory {
-  createForUser(user: userToken) {
+  createForUser(user: UserToken) {
     const { build, can, cannot } = new AbilityBuilder<
       Ability<[Action, Subjects]>
     >(Ability as AbilityClass<AppAbility>)
