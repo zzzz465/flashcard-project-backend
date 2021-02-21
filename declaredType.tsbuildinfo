@@ -5,7 +5,6 @@
       "./src/app.service.ts",
       "./src/user/DTO/LoginUser.dto.ts",
       "./src/bundle/entities/card.entity.ts",
-      "./src/star/entities/star.entity.ts",
       "./src/bundle/entities/bundle.entity.ts",
       "./src/user/entities/user.entity.ts",
       "./src/user/user.repository.ts",
@@ -32,11 +31,6 @@
       "./src/bundle/bundle.controller.ts",
       "./src/bundle/card.repository.ts",
       "./src/bundle/bundle.module.ts",
-      "./src/star/DTO/addStar.dto.ts",
-      "./src/star/star.repository.ts",
-      "./src/star/star.service.ts",
-      "./src/star/star.controller.ts",
-      "./src/star/star.module.ts",
       "./src/app.module.ts",
       "./src/http-exception.filter.ts",
       "./src/main.ts"
@@ -51,7 +45,7 @@
         },
         {
           "pos": 34,
-          "end": 12995,
+          "end": 10892,
           "kind": "text"
         }
       ]

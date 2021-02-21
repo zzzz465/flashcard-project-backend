@@ -10,7 +10,7 @@
     "prebuild": "npm run clear",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "build:types": "tsc -p ./tsconfig.build.json",
+    "build:types": "npx tsc -p ./tsconfig.buildTypes.json",
     "prestart": "npm run clear",
     "start": "nest start",
     "start:dev": "nest start --watch",
