@@ -38,14 +38,15 @@ export class BundleService {
   }
 
   async update(
-    id: number,
+    bundleId: number,
     user: UserToken,
     { cards, description, title, isPrivate }: UpdateBundleDto,
   ) {
-    const bundle = await this.bundleRepository.findOne(id)
+    cards?.map((card) => (card.bundle = bundleId))
+    const bundle = await this.bundleRepository.findOne(bundleId)
     if (bundle && bundle.owner === user.id) {
       return await this.bundleRepository.save({
-        id,
+        id: bundleId,
         cards,
         description,
         title,

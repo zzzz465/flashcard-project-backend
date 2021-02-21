@@ -37,6 +37,7 @@ export class Bundle {
 
   @OneToMany((type) => Card, (card) => card.bundle, {
     cascade: true,
+    eager: true,
     nullable: false,
   })
   cards!: Card[]
