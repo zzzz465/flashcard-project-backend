@@ -1,5 +1,6 @@
 import { User } from '../../user/entities/user.entity'
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -14,7 +15,7 @@ import { Card } from './card.entity'
 import { Star } from '../../star/entities/star.entity'
 
 @Entity()
-export class Bundle {
+export class Bundle extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
 
@@ -39,6 +40,7 @@ export class Bundle {
 
   @OneToMany((type) => Card, (card) => card.bundle, {
     cascade: true,
+    eager: true,
     nullable: false,
   })
   cards!: Card[]

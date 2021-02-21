@@ -21,6 +21,7 @@ import { StarModule } from './star/star.module'
       entities: [path.join(__dirname, '/../**/*.entity.js')],
       synchronize: true,
       autoLoadEntities: true,
+      logging: true,
     }),
     UserModule,
     BundleModule,

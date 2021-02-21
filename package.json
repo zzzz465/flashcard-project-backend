@@ -6,9 +6,12 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "rimraf dist",
+    "clear": "rimraf dist",
+    "prebuild": "npm run clear",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "build:types": "npx tsc -p ./tsconfig.buildTypes.json",
+    "prestart": "npm run clear",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",

@@ -38,10 +38,14 @@ export class UserController {
     @Request() req: any,
     @Response({ passthrough: true }) res: express.Response,
   ) {
-    const { access_token } = await this.authService.login(req.user)
+    const result = await this.authService.login(req.user)
     return {
-      access_token,
-    }
+      bundles: result.bundles,
+      email: result.email,
+      id: result.id,
+      name: result.name,
+      access_token: `Bearer ${result.access_token}`,
+    } as Partial<User>
   }
 
   @UseGuards(JWTAuthGuard)

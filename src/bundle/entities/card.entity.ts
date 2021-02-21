@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   Entity,
   JoinColumn,
@@ -9,16 +10,19 @@ import {
 import { Bundle } from './bundle.entity'
 
 @Entity()
-export class Card {
-  @PrimaryGeneratedColumn()
+export class Card extends BaseEntity {
+  @PrimaryGeneratedColumn({ name: 'id' })
   id!: number
+
+  @Column({ name: 'bundleId', nullable: false })
+  bundleId!: number
+
   @ManyToOne((type) => Bundle, (bundle) => bundle.cards, {
-    onDelete: 'CASCADE',
     nullable: false,
+    onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'bundle' })
-  @Column({ type: 'int' })
-  bundle!: Bundle | number
+  @JoinColumn()
+  bundle!: Bundle
   @Column()
   front!: string
   @Column()

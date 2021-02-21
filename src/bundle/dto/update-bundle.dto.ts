@@ -1,8 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types'
-import { PickType } from '@nestjs/swagger'
 import { IsBoolean, IsObject, IsOptional, IsString } from 'class-validator'
+import { Bundle } from '../entities/bundle.entity'
 import { Card } from '../entities/card.entity'
-import { CreateBundleDto } from './create-bundle.dto'
 
 export class UpdateBundleDto {
   @IsOptional()
@@ -13,11 +11,12 @@ export class UpdateBundleDto {
   @IsString()
   description?: string
 
-  @IsOptional()
   @IsObject({ each: true })
-  cards?: Card[]
+  cards!: Card[] // length >= 1 (required)
 
   @IsOptional()
   @IsBoolean()
   isPrivate?: boolean = false
 }
+
+export class UpdateBundleResponseDTO extends Bundle {}

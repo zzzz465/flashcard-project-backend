@@ -1,12 +1,14 @@
 {
   "collection": "@nestjs/schematics",
   "sourceRoot": "src",
-  "plugins": [
-    {
-      "name": "@nestjs/swagger/plugin",
-      "options": {
-        "introspectComments": true
+  "compilerOptions": {
+    "plugins": [
+      {
+        "name": "@nestjs/swagger/plugin",
+        "options": {
+          "introspectComments": true
+        }
       }
-    }
-  ]
+    ]
+  }
 }

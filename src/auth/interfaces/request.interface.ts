@@ -1,6 +1,6 @@
 import { Request } from 'express'
-import { userToken } from '../jwt.interface'
+import { UserToken } from '../jwt.interface'
 
 export interface RequestWithUser extends Request {
-  user: userToken
+  user: UserToken
 }
