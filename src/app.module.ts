@@ -18,6 +18,7 @@ import { AuthModule } from './auth/auth.module'
       entities: [path.join(__dirname, '/../**/*.entity.js')],
       synchronize: true,
       autoLoadEntities: true,
+      logging: true,
     }),
     UserModule,
     BundleModule,

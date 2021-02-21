@@ -1,5 +1,6 @@
 import { User } from '../../user/entities/user.entity'
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -12,7 +13,7 @@ import {
 import { Card } from './card.entity'
 
 @Entity()
-export class Bundle {
+export class Bundle extends BaseEntity {
   @PrimaryGeneratedColumn()
   id!: number
 

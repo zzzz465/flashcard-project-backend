@@ -20,7 +20,10 @@ import { RequestWithUser } from '../auth/interfaces/request.interface'
 import { BundleService } from './bundle.service'
 import { Action, BundleAbilityFactory } from './casl-ability.factory'
 import { CreateBundleDto } from './dto/create-bundle.dto'
-import { UpdateBundleDto } from './dto/update-bundle.dto'
+import {
+  UpdateBundleDto,
+  UpdateBundleResponseDTO,
+} from './dto/update-bundle.dto'
 import { Bundle } from './entities/bundle.entity'
 
 @Controller('bundles')
@@ -51,12 +54,16 @@ export class BundleController {
 
   @UseGuards(JWTAuthGuard)
   @Put(':id')
-  update(
+  async update(
     @Param('id') id: number,
     @Request() req: RequestWithUser,
     @Body() updateBundleDto: UpdateBundleDto,
-  ) {
-    const result = this.bundleService.update(id, req.user, updateBundleDto)
+  ): Promise<UpdateBundleResponseDTO> {
+    const result = await this.bundleService.update(
+      id,
+      req.user,
+      updateBundleDto,
+    )
     if (typeof result !== 'boolean') return result
     else
       throw new HttpException(

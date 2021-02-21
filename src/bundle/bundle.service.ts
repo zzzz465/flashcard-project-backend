@@ -42,16 +42,17 @@ export class BundleService {
     user: UserToken,
     { cards, description, title, isPrivate }: UpdateBundleDto,
   ) {
-    cards?.map((card) => (card.bundle = bundleId))
     const bundle = await this.bundleRepository.findOne(bundleId)
     if (bundle && bundle.owner === user.id) {
-      return await this.bundleRepository.save({
+      const result = await this.bundleRepository.updateBundle({
         id: bundleId,
-        cards,
+        cards: cards ?? [],
         description,
         title,
         isPrivate,
       })
+
+      return result
     } else {
       return false
     }
