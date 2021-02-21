@@ -44,7 +44,7 @@ export class UserController {
       email: result.email,
       id: result.id,
       name: result.name,
-      access_token: result.access_token,
+      access_token: `Bearer ${result.access_token}`,
     } as Partial<User>
   }
 
