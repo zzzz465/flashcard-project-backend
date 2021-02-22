@@ -1,0 +1,65 @@
+name: dev server deploy
+
+on:
+  push:
+    branches: [ dev, develop/CI ]
+
+jobs:
+  deploy-to-server:
+    runs-on: ubuntu-20.04
+    needs: docker
+    steps:
+      -
+        uses: actions/checkout@v2
+
+      -
+        name: copy Dockerfile and docker-compose.yml to serverr
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          key: ${{ secrets.REMOTE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          source: "docker-compose.yml,Dockerfile"
+          target: "~/app/flashcard-be"
+
+      -
+        name: run docker-compose up on remote server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USERNAME }}
+          key: ${{ secrets.REMOTE_KEY }}
+          port: ${{ secrets.REMOTE_PORT }}
+          script: |
+            cd ~/app/flashcard-be
+            docker-compose -H localhost:2375 up -d
+            echo "Job Done!"
+
+  docker:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        uses: actions/checkout@v2
+
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      -
+        name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      -
+        name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: zzzz465/flashcard-be:latest
+      -
+        name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}
