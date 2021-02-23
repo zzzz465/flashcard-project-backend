@@ -12,15 +12,15 @@ services:
       - DB_HOST=db
       - DB_PORT=5432
       - NODE_ENV=production
-    build: 
-      context: .
-      dockerfile: Dockerfile
-      args:
+    # build: 
+      # context: .
+      # dockerfile: Dockerfile
+      # args:
         # [Choice] Node.js version: 14, 12, 10
-        VARIANT: 14
+        # VARIANT: 14
         # On Linux, you may need to update USER_UID and USER_GID below if not your local UID is not 1000.
-        USER_UID: 1000
-        USER_GID: 1000
+        # USER_UID: 1000
+        # USER_GID: 1000
 
     depends_on:
       - db
