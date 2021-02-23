@@ -16,4 +16,21 @@ RUN if [ "$USER_GID" != "1000" ] || [ "$USER_UID" != "1000" ]; then groupmod --g
 # RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
 
 # [Optional] Uncomment if you want to install more global node modules
+
+ENV NODE_ENV=production DB_HOST=localhost DB_PORT=5432
+
+WORKDIR /app
+
+COPY . .
+
 RUN su node -c "npm install -g @nestjs/cli typescript"
+
+RUN sudo npm -c install
+
+# https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md#global-npm-dependencies
+# ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+# ENV PATH=$PATH:/home/node/.npm-global/bin
+
+RUN npm run build
+
+# CMD npm run start:prod
