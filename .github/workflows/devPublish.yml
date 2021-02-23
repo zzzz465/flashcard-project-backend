@@ -33,8 +33,8 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             cd ~/app/flashcard-be
+            docker-compose -H localhost:2375 pull
             docker-compose -H localhost:2375 up -d
-            echo "Job Done!"
 
   docker:
     runs-on: ubuntu-latest
