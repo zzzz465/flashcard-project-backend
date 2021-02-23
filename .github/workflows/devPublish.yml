@@ -59,7 +59,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: zzzz465/flashcard-be:latest
+          tags: zzzz465/flashcard-be:$(git rev-parse --short HEAD)
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
