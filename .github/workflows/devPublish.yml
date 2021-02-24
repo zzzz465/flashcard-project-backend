@@ -33,14 +33,24 @@ jobs:
           port: ${{ secrets.REMOTE_PORT }}
           script: |
             cd ~/app/flashcard-be
+            docker-compose -H localhost:2375 pull
             docker-compose -H localhost:2375 up -d
-            echo "Job Done!"
 
   docker:
     runs-on: ubuntu-latest
     steps:
       -
         uses: actions/checkout@v2
+
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            zzzz465/flashcard-be
+          # add git short SHA as Docker tag
+          tag-sha: true
 
       -
         name: Set up Docker Buildx
@@ -59,7 +69,8 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: zzzz465/flashcard-be:latest
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
