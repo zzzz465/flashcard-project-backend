@@ -166,8 +166,11 @@ declare module "user/user.module" {
 }
 declare module "auth/jwt.interface" {
     import { User } from "user/entities/user.entity";
-    const UserToken_base: import("@nestjs/common").Type<Pick<User, "email" | "id" | "name">>;
-    export class UserToken extends UserToken_base {
+    export type IUserToken = Omit<User, 'encrypted' | 'bundles'>;
+    export class UserToken implements IUserToken {
+        id: number;
+        name: string;
+        email: string;
     }
 }
 declare module "bundle/bundle.repository" {

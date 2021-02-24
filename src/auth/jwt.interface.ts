@@ -1,4 +1,10 @@
-import { OmitType } from '@nestjs/swagger'
+import { OmitType, PickType } from '@nestjs/swagger'
 import { User } from '../user/entities/user.entity'
 
-export class UserToken extends OmitType(User, ['encrypted', 'bundles']) {}
+export type IUserToken = Omit<User, 'encrypted' | 'bundles'>
+
+export class UserToken implements IUserToken {
+  id!: number
+  name!: string
+  email!: string
+}
